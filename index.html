@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUMIQVERSE: The Dark Knight Edition</title>
+    <title>SUMIQVERSE: The Universe Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* --- CSS Custom Properties (Variables) --- */
         :root {
-            --bg-color: #0c0c0c;
+            --bg-color-start: #000000; /* Pure Black */
+            --bg-color-end: #0a192f;   /* Dark Navy Blue */
             --primary-text-color: #e0e0e0;
-            --secondary-text-color: #a0a0a0;
-            --accent-color: #fde82c; /* Bat-Signal Yellow */
-            --card-bg-color: rgba(26, 26, 26, 0.7);
-            --card-border-color: rgba(253, 232, 44, 0.3);
-            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            --secondary-text-color: #b0b0b0;
+            --accent-color: #4d94ff; /* A cool, futuristic blue */
+            --card-bg-color: rgba(10, 25, 47, 0.7); /* Blue-tinted glass */
+            --card-border-color: rgba(77, 148, 255, 0.4);
+            --card-shadow: 0 8px 32px 0 rgba(0, 50, 150, 0.37); /* Shadow tinted with blue */
         }
 
         /* --- Base Styles & Scrollbar --- */
@@ -32,9 +33,7 @@
 
         body {
             height: 100%;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 15% 50%, rgba(20, 20, 20, 0.5), transparent 40%),
-                              radial-gradient(circle at 85% 30%, rgba(30, 30, 30, 0.5), transparent 40%);
+            background: linear-gradient(180deg, var(--bg-color-start) 0%, var(--bg-color-end) 100%);
             font-family: 'Roboto Condensed', sans-serif;
             overflow-x: hidden;
             color: var(--primary-text-color);
@@ -45,10 +44,10 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-color);
+            background: var(--bg-color-start);
         }
         ::-webkit-scrollbar-thumb {
-            background: #222;
+            background: #112a4a;
             border-radius: 4px;
             border: 1px solid var(--accent-color);
         }
@@ -57,9 +56,87 @@
         }
         
         h1, h2, h3 {
-             font-family: 'Bebas Neue', cursive;
+             font-family: 'Orbitron', sans-serif;
              letter-spacing: 1.5px;
         }
+
+        /* --- Animated Starry Background --- */
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @function random_range($min, $max) {
+            $rand: random();
+            $random_range: $min + floor($rand * ($max - $min + 1));
+            @return $random_range;
+        }
+
+        .stars {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px white;
+            animation: twinkle linear infinite;
+        }
+
+        /* Using a pre-generated starfield for performance */
+        #stars { background: transparent; box-shadow: 79vw 83vh #FFF, 2vw 2vh #FFF, 88vw 5vh #FFF, 7vw 3vh #FFF, 24vw 85vh #FFF, 2vw 38vh #FFF, 62vw 82vh #FFF, 23vw 4vh #FFF, 61vw 7vh #FFF, 15vw 1vh #FFF; animation: twinkle 1.5s infinite linear; }
+        #stars2 { background: transparent; box-shadow: 78vw 7vh #FFF, 13vw 3vh #FFF, 65vw 80vh #FFF, 15vw 55vh #FFF, 54vw 27vh #FFF, 8vw 27vh #FFF, 47vw 6vh #FFF, 45vw 2vh #FFF, 87vw 80vh #FFF, 6vw 42vh #FFF; animation: twinkle 2.5s infinite linear; }
+        #stars3 { background: transparent; box-shadow: 4vw 9vh #FFF, 76vw 3vh #FFF, 53vw 80vh #FFF, 17vw 59vh #FFF, 34vw 29vh #FFF, 9vw 26vh #FFF, 42vw 8vh #FFF, 50vw 8vh #FFF, 89vw 82vh #FFF, 8vw 45vh #FFF; animation: twinkle 3.5s infinite linear; }
+        
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        /* --- Shooting Star Animation --- */
+        .night {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            transform: rotateZ(45deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shooting_star {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 2px;
+            background: linear-gradient(-45deg, var(--accent-color), rgba(77, 148, 255, 0));
+            border-radius: 999px;
+            filter: drop-shadow(0 0 6px var(--accent-color));
+            animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+        }
+
+        @keyframes tail {
+            0% { width: 0; }
+            30% { width: 100px; }
+            100% { width: 0; }
+        }
+
+        @keyframes shooting {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(350px); }
+        }
+
+        .shooting_star:nth-child(1) { top: calc(50% - 200px); left: calc(50% - 400px); animation-delay: 1.2s; }
+        .shooting_star:nth-child(2) { top: calc(50% - 100px); left: calc(50% - 200px); animation-delay: 1.7s; }
+        .shooting_star:nth-child(3) { top: calc(50% + 100px); left: calc(50% - 250px); animation-delay: 3.2s; }
+        .shooting_star:nth-child(4) { top: calc(50% + 200px); left: calc(50% - 150px); animation-delay: 4.1s; }
+
+        /* --- Custom Cursor Trail --- */
+        /* This entire section has been removed */
 
         /* --- Main Content Wrapper --- */
         .content-wrapper {
@@ -83,46 +160,41 @@
             animation: shrinkHeader 1s ease-in-out 6.5s forwards;
         }
 
-        /* --- Intro Animation: Falling / Expanding Drop --- */
+        /* --- Intro Animation: Falling Meteor --- */
         .drop {
             position: absolute;
             top: -150px;
             left: 50%;
             width: 80px;
             height: 80px;
-            background: radial-gradient(circle, var(--accent-color) 0%, rgba(253, 232, 44, 0) 70%);
+            background: radial-gradient(circle, var(--accent-color) 0%, rgba(77, 148, 255, 0) 70%);
             box-shadow: 0 0 50px var(--accent-color);
             border-radius: 50%;
             transform: translateX(-50%);
-            animation: fall 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards, 
-                       expand 2.2s ease-out 1.8s forwards;
+            animation: fall 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards, expand 2.2s ease-out 1.8s forwards;
             z-index: 10;
         }
 
         /* --- Headlines --- */
         .title {
             position: absolute;
-            top: 45%; /* Centered better initially */
+            top: 45%; 
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 3.5rem;
-            font-weight: 700;
             opacity: 0;
             white-space: nowrap;
             overflow: hidden;
             border-right: 3px solid var(--accent-color);
-            text-shadow: 0 0 10px rgba(253, 232, 44, 0.7);
+            text-shadow: 0 0 15px rgba(77, 148, 255, 0.8);
             z-index: 5;
-            animation: fadeIn 0.5s 3.8s forwards, 
-                       typing 2.5s steps(22) 3.8s forwards,
-                       blink-caret .75s step-end 3.8s 4,
-                       repositionTitle 1s ease-in-out 6.5s forwards;
+            animation: fadeIn 0.5s 3.8s forwards, typing 2.5s steps(22) 3.8s forwards, blink-caret .75s step-end 3.8s 4, repositionTitle 1s ease-in-out 6.5s forwards;
         }
 
         .subtitle {
             text-align: center;
             font-size: 1.4rem;
-            font-family: 'Bebas Neue', cursive;
+            font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
             color: var(--secondary-text-color);
             opacity: 0;
@@ -132,7 +204,7 @@
             animation: slideUpFade 1.2s ease-out 7s forwards;
         }
 
-        /* --- Content Cards: Glassmorphism Effect --- */
+        /* --- Content Cards: Glassmorphism & 3D Tilt Effect --- */
         .info-card {
             margin-bottom: 40px;
             display: flex;
@@ -146,28 +218,22 @@
             border-radius: 12px;
             box-shadow: var(--card-shadow);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             opacity: 0;
-            transform: translateY(20px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transform: translateY(20px) perspective(1000px); /* Add perspective */
+            transition: transform 0.1s linear, box-shadow 0.3s ease, border-color 0.3s ease;
             flex-wrap: wrap;
         }
         
         .info-card:hover {
-            transform: translateY(5px);
-            box-shadow: 0 0 30px 0 rgba(253, 232, 44, 0.3);
+            box-shadow: 0 0 40px 0 rgba(77, 148, 255, 0.4);
             border-color: var(--accent-color);
         }
 
         /* Applying entrance animations with a slight delay */
-        .photo-box {
-            animation: slideUpFade 1.2s ease-out 7.2s forwards;
-        }
-        .msc-container {
-            animation: slideUpFade 1.2s ease-out 7.5s forwards;
-        }
-        .projects-section {
-            animation: slideUpFade 1.2s ease-out 7.8s forwards;
-        }
+        .photo-box { animation: slideUpFade 1.2s ease-out 7.2s forwards; }
+        .msc-container { animation: slideUpFade 1.2s ease-out 7.5s forwards; }
+        .projects-section { animation: slideUpFade 1.2s ease-out 7.8s forwards; }
 
         .hero-img {
             width: 220px;
@@ -177,12 +243,12 @@
             flex-shrink: 0;
             border: 2px solid var(--card-border-color);
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
-            filter: grayscale(0.5);
+            filter: grayscale(0.5) contrast(1.1);
         }
 
         .hero-img:hover {
             transform: scale(1.05);
-            filter: grayscale(0);
+            filter: grayscale(0) contrast(1);
         }
 
         .card-text {
@@ -205,7 +271,6 @@
             padding-bottom: 5px;
         }
         
-        /* Underline effect for headings */
         .card-text h2::after {
             content: '';
             position: absolute;
@@ -218,13 +283,8 @@
             box-shadow: 0 0 10px var(--accent-color);
         }
         
-        .card-text p {
-            margin-bottom: 15px;
-        }
-
-        .card-text p:last-child {
-            margin-bottom: 0;
-        }
+        .card-text p { margin-bottom: 15px; }
+        .card-text p:last-child { margin-bottom: 0; }
 
         /* --- Projects Grid --- */
         .projects-grid {
@@ -236,20 +296,20 @@
         }
 
         .project-card {
-            background-color: rgba(10, 10, 10, 0.5);
+            background-color: rgba(10, 10, 30, 0.5);
             border-radius: 12px;
             overflow: hidden;
             text-decoration: none;
             color: var(--primary-text-color);
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid var(--card-border-color);
             position: relative;
+            transform: perspective(1000px); /* Add perspective */
+            transition: transform 0.1s linear, background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            background-color: rgba(20, 20, 20, 0.8);
-            box-shadow: 0 0 20px rgba(253, 232, 44, 0.5);
+            background-color: rgba(17, 34, 64, 0.8);
+            box-shadow: 0 0 20px rgba(77, 148, 255, 0.5);
         }
 
         .project-card img {
@@ -273,78 +333,53 @@
         }
 
         /* --- Animation Keyframes --- */
-        @keyframes fall {
-            0% { top: -150px; }
-            100% { top: 50%; transform: translateX(-50%) translateY(-50%); }
-        }
-        @keyframes expand {
-            0% { transform: translateX(-50%) translateY(-50%) scale(1); }
-            100% { transform: translateX(-50%) translateY(-50%) scale(100); opacity: 0; visibility: hidden;}
-        }
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 22ch; }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--accent-color); }
-        }
-        @keyframes slideUpFade {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes shrinkHeader {
-            to {
-                height: 200px;
-            }
-        }
-        @keyframes repositionTitle {
-            to {
-                top: 50%;
-            }
-        }
+        @keyframes fall { 0% { top: -150px; } 100% { top: 50%; transform: translateX(-50%) translateY(-50%); } }
+        @keyframes expand { 0% { transform: translateX(-50%) translateY(-50%) scale(1); } 100% { transform: translateX(-50%) translateY(-50%) scale(100); opacity: 0; visibility: hidden;} }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes typing { from { width: 0; } to { width: 22ch; } }
+        @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: var(--accent-color); } }
+        @keyframes slideUpFade { to { opacity: 1; transform: translateY(0) perspective(1000px); } }
+        @keyframes shrinkHeader { to { height: 200px; } }
+        @keyframes repositionTitle { to { top: 50%; } }
+
+        /* New keyframe for the cursor glow */
+        /* @keyframes glow block removed */
 
         /* --- Responsive Design --- */
         @media(max-width: 850px){
-            .info-card {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .card-text h2::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
+            .info-card { flex-direction: column; align-items: center; text-align: center; }
+            .card-text h2::after { left: 50%; transform: translateX(-50%); }
         }
         @media(max-width: 480px){
             .title { font-size: 2.2rem; }
             .subtitle { font-size: 1.2rem; }
             .hero-img { width: 180px; height: 220px; }
             .card-text { font-size: 1rem; }
-            .project-card h3 {
-                font-size: 1.2rem;
-            }
+            .project-card h3 { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
+    <div id="stars-container">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </div>
+    <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
 
     <header class="intro-header">
-        <!-- This div creates the initial falling and expanding animation -->
         <div class="drop"></div>
         <h1 class="title">Welcome to SUMIQVERSE</h1>
     </header>
 
-    <!-- Main content area -->
     <main class="content-wrapper">
         <p class="subtitle">A place to know him better — his own universe.</p>
 
-        <!-- Portrait with text card -->
         <section class="info-card photo-box">
             <img src="hero.jpg" alt="A portrait of Sumit Kumar" class="hero-img">
             <div class="card-text">
@@ -355,7 +390,6 @@
             </div>
         </section>
 
-        <!-- "Why MSC-MSIT" card -->
         <section class="info-card msc-container">
             <div class="card-text">
                  <h2>Why He Wants to Join MSC-MSIT</h2>
@@ -365,41 +399,63 @@
             </div>
         </section>
 
-        <!-- His Projects Section -->
         <section class="info-card projects-section">
             <div class="card-text full-width">
                  <h2>His Projects</h2>
                  <div class="projects-grid">
-                    <!-- Project 1: Chess -->
                     <a href="https://sumiqverse.github.io/CHESS/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <img src="https://placehold.co/300x200/0c0c0c/fde82c?text=Chess" alt="Chess Game Project Screenshot">
+                        <img src="https://placehold.co/300x200/0a192f/4d94ff?text=Chess" alt="Chess Game Project Screenshot">
                         <h3>Chess</h3>
                     </a>
-                    <!-- Project 2: Calculator -->
                     <a href="https://sumiqverse.github.io/CALCULATOR/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <img src="https://placehold.co/300x200/0c0c0c/fde82c?text=Calculator" alt="Calculator Project Screenshot">
+                        <img src="https://placehold.co/300x200/0a192f/4d94ff?text=Calculator" alt="Calculator Project Screenshot">
                         <h3>Calculator</h3>
                     </a>
-                    <!-- Project 3: Tic Tac Toe -->
                     <a href="https://sumiqverse.github.io/tic-tac-toe/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <img src="https://placehold.co/300x200/0c0c0c/fde82c?text=Tic+Tac+Toe" alt="Tic Tac Toe Project Screenshot">
+                        <img src="https://placehold.co/300x200/0a192f/4d94ff?text=Tic+Tac+Toe" alt="Tic Tac Toe Project Screenshot">
                         <h3>Tic Tac Toe</h3>
                     </a>
-                    <!-- Project 4: Weather -->
                     <a href="https://sumiqverse.github.io/weather/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <img src="https://placehold.co/300x200/0c0c0c/fde82c?text=Weather+App" alt="Weather App Project Screenshot">
+                        <img src="https://placehold.co/300x200/0a192f/4d94ff?text=Weather+App" alt="Weather App Project Screenshot">
                         <h3>Weather App</h3>
                     </a>
-                    <!-- Project 5: Typing Speed Game -->
                     <a href="https://sumiqverse.github.io/TYPING-SPEED-GAME/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <img src="https://placehold.co/300x200/0c0c0c/fde82c?text=Typing+Game" alt="Typing Speed Game Project Screenshot">
+                        <img src="https://placehold.co/300x200/0a192f/4d94ff?text=Typing+Game" alt="Typing Speed Game Project Screenshot">
                         <h3>Typing Speed Game</h3>
                     </a>
                  </div>
             </div>
         </section>
     </main>
+    <script>
+        // --- Interactive Cursor Trail ---
+        // This entire script block has been removed.
 
+        // --- 3D Card Tilt Effect ---
+        const tiltableCards = document.querySelectorAll('.info-card, .project-card');
+
+        tiltableCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const width = card.offsetWidth;
+                const height = card.offsetHeight;
+
+                const rotateX = ((y / height) - 0.5) * -15; // Max rotation 7.5deg
+                const rotateY = ((x / width) - 0.5) * 15;   // Max rotation 7.5deg
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+
 
